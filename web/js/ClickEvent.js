@@ -23,3 +23,8 @@ function returnlist(url) {
 function backingPage() {
     history.go(-1);
 }
+
+function boardUpdateCheck() {
+    var form = document.BoardUpdateForm;
+    return true;
+}
