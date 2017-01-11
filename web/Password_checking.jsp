@@ -1,3 +1,6 @@
+<%@ page import="java.sql.*" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,19 +14,10 @@
 </head>
 <%
 
-    if(request.getParameter("Update").equals("update")){
-    String update = request.getParameter("Update");
-        request.setAttribute("update", update);
-    }else{
-        String delete = request.getParameter("delete");
-        request.setAttribute("delete", delete);
-    }
-    RequestDispatcher dispatcher = request.getRequestDispatcher("Password_confirm.jsp");
-    dispatcher.forward(request, response);
 %>
 <body>
 
-<div class="container" style="align-content:center; text-align: center; margin-top: 200px;  " >
+<div class="container" style="align-content:center; text-align: center; margin-top: 200px;  ">
     <form action="Password_comfirm.jsp" method="post" accept-charset="utf-8" name="password_checking"
           id="password_confirm">
         <ul class="list-group">
