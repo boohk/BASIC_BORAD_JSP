@@ -43,9 +43,7 @@
 
 <div class="container">
     <table summary="글쓰기 전체 테이블">
-        <form name="WriteForm" method="post" action="Password_checking_Update.jsp?idx=<%=idx%>"
-              onsubmit="return WriteCheck();">
-
+        <form name="WriteForm" method="post" onsubmit="return WriteCheck();">
             <colgroup>
                 <col width="20%">
                 <col width="80%">
@@ -93,22 +91,19 @@
                 <tr>
                     <td colspan="2">
                         <div class="row">
-                            <div class="align=left">
-                                <input type="button" value="전체보기" onclick="move('Posts_list.jsp')" ;>
-                                <a type="button" name="update" href="Password_comfirm.jsp?idx=<%=idx %>&check=update">수정</a>
-                                <a type="button" name="delete" href="Password_comfirm.jsp?idx=<%=idx %>&check=delete">삭제</a>
-                                <input type="button" value="글쓰기" onclick="move('Post.html');">
+                            <div align="right">
+                                <a class="btn btn-success" name="show" href="Posts_list.jsp">전체보기</a>
+                                <a class="btn btn-warning" name="update" href="Password_checking.jsp?idx=<%=idx%>&check=update">수정</a>
+                                <a class="btn btn-danger" name="delete" href="Password_checking.jsp?idx=<%=idx%>&check=delete">삭제</a>
+                                <a class="btn btn-success" name="write" href="Post.html">글쓰기</a>
                             </div>
                             <%
-
                                 } catch (SQLException e) {
                                     out.println(e.toString());
                                 }finally {
                                     db.pstmtClose();
-
                                     }
                             %>
-                            <%--<jsp:forward page="Password_checking.html"></jsp:forward> <%--<jsp:forward page="Password_checking.html"></jsp:forward>--%>
                         </div>
                     </td>
                 </tr>

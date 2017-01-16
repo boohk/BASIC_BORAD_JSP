@@ -1,6 +1,7 @@
-<%@ page import="java.sql.SQLException" %>
+<%@ page import="java.sql.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="db" class="com.board.DAO.DB_Connection" scope="request"/>
+
 <%--
   Created by IntelliJ IDEA.
   User: BooJing
@@ -13,24 +14,23 @@
     <title>BOARD_NORMAL_UPDATE_201770110</title>
 </head>
 <%
+    String idx = request.getParameter("idx");
+
     try {
-
-        String sql = "UPDATE normal SET " +
-                "WRITER = " + request.getParameter("writer") +
-                ",PASSWORD," + request.getParameter("psw") +
-                ",TITLE," + request.getParameter("title") +
-                ",CONTENT," + request.getParameter("content") +
-                ",WHERE IDX =" + request.getParameter("idx");
-
+        out.print(idx);
+        String sql = "DELETE FROM normal WHERE IDX=" + idx;
         db.PreparedStatementOpen(sql);
         db.pstmtExecuteUpdate();
-
-        response.sendRedirect("DetailedPost.jsp");
+        response.sendRedirect("Posts_list.jsp");
 
     } catch (SQLException se) {
-        System.out.println(se.getMessage());
+        out.println(se.getMessage());
     } finally {
-        db.pstmtClose();
+        try {
+            db.pstmtClose();
+        } catch (SQLException se) {
+            out.println(se.getMessage());
+        }
     }
 %>
 <body>

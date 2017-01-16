@@ -12,33 +12,21 @@
 <html>
 
 <head>
-    <title>BOARD_NORMAL_UPDATE_201770110</title>
+    <title>BOARD_NORMAL_UPDATE_201770116</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/ClickEvent.js"></script>
 </head>
-
 <%
-    request.setCharacterEncoding("UTF-8");
-    String password = null;
-    String idx = request.getParameter("idx");
-    String sql = "select PASSWORD from normal where IDX=" + idx;
-    db.PreparedStatementOpen(sql);
-    ResultSet rs = db.pstmtExecuteQuery();
-
-    if (rs.next()) {
-        password = rs.getString(1);
-    }
-
-    if (password == request.getParameter("psd")) {
-
-        try {
-            sql = "SELECT WRITER, PASSWORD, TITLE, CONTENT, HIT from normal where IDX=" + idx;
-            db.PreparedStatementOpen(sql);
-            rs = db.pstmtExecuteQuery();
-
+    try {
+        request.setCharacterEncoding("UTF-8");
+        String idx = request.getParameter("idx");
+        String sql = "SELECT WRITER, PASSWORD, TITLE, CONTENT, HIT from normal where IDX=" + idx;
+        db.PreparedStatementOpen(sql);
+        ResultSet rs = db.pstmtExecuteQuery();
 %>
+
 <body>
 
 <div class="container">
@@ -51,12 +39,10 @@
 <div class="container">
     <table summary="글쓰기 전체 테이블">
         <form name="WriteForm" method="post" action="Post_update.jsp?idx=<%=idx%>">
-
             <colgroup>
                 <col width="20%">
                 <col width="80%">
             </colgroup>
-
             <%
                 while (rs.next()) {
                     String writer = rs.getString("WRITER");
@@ -93,26 +79,27 @@
                 </br>
 
                 <%
-                            }
-                            rs.close();
+
+                        }
+                        rs.close();
+
+                    } catch (SQLException se) {
+                        out.println(se.getMessage());
+                    } finally {
+                        try {
+                            db.pstmtClose();
                         } catch (SQLException se) {
                             out.println(se.getMessage());
-                        } finally {
-                            try {
-                                db.pstmtClose();
-                            } catch (SQLException se) {
-                                out.println(se.getMessage());
-                            }
                         }
-                    } else {
-                        return;
                     }
                 %>
                 <tr>
                     <td colspan="2">
-                        <div align="center">
-                            <input type="submit" value="확인">
-                            <input type="button" value="취소" onclick="backingPage()">
+                        <div class="row">
+                            <div align="right">
+                                <input class="btn btn-success" type="submit" value="확인">
+                                <input class="btn btn-default" type="button" value="취소" onclick="history.go(-1)">
+                            </div>
                         </div>
                     </td>
                 </tr>

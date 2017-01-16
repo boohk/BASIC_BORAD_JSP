@@ -6,7 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="java.sql.*" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Locale" %>
+<%@ page import="java.util.Date" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<jsp:useBean id="now" class="java.util.Date"/>
 <jsp:useBean id="db" class="com.board.DAO.DB_Connection" scope="request"/>
 
 <html>
@@ -16,6 +20,8 @@
 </head>
 
 <%
+    request.setCharacterEncoding("UTF-8");
+
     try {
 
         String idx = request.getParameter("idx");
@@ -23,12 +29,14 @@
         String psw = request.getParameter("updatePsw");
         String title = request.getParameter("updateTitle");
         String content = request.getParameter("updateContent");
-        request.setCharacterEncoding("UTF-8");
 
-        String sql = " UPDATE  normal SET WRITER = ?, PASSWORD = ?, TITLE= ?,CONTENT = ?, `REG_TIMESTAMP` = 'CURRENT_TIMESTAMP' WHERE IDX =" + idx;
-        db.pstmtSetValues(writer, psw, title, content);
+        SimpleDateFormat formatter = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss",Locale.KOREA );
+        String currentTime = formatter.format ( new Date() );
+
+        String sql = " UPDATE  normal SET WRITER = ?, PASSWORD = ?, TITLE= ?,CONTENT = ?, `REG_TIMESTAMP` = ? WHERE IDX =" + idx;
         db.PreparedStatementOpen(sql);
-        db.pstmtExecuteQuery();
+        db.pstmtSetValues(writer, psw, title, content, currentTime);
+        db.pstmtExecuteUpdate();
 %>
 
 <script language=javascript>

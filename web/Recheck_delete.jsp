@@ -1,4 +1,4 @@
-<%@ page import="java.sql.*" %>
+
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
@@ -18,18 +18,14 @@
 <body>
 
 <div class="container" style="align-content:center; text-align: center; margin-top: 200px;  ">
-    <form action="DetailedPost_updating.jsp?idx=<%=idx%>" method="post" accept-charset="utf-8" name="password_checking_Update"
-          id="password_confirm">
         <ul class="list-group">
-            <li class="list-group-item">비밀번호를 입력하여 주세요.</li>
-            <li class="list-group-item"><input type="password" id="psd" name="psd" class=""/></li>
+            <li class="list-group-item">정말 삭제하시겟습니까?</li>
             <li class="list-group-item">
-                <input type="submit" class="btn-primary" alt="확인" value="확인" style="cursor:pointer;"/>
-                <a class="btn btn-default" href="Posts_list.jsp" role="button">목록보기</a>
-                <a class="btn btn-default" onclick="backingPage()" role="button">이전으로</a>
+                <a class="btn btn-primary" href="Post_delete.jsp?idx=<%=idx%>" style="cursor:pointer;" role="button"/>예</a>
+                <a class="btn btn-default" href="Posts_list.jsp" role="button">아니오</a>
+                <a class="btn btn-default" onclick="history.go(-1)" role="button">이전으로</a>
             </li>
         </ul>
-    </form>
 </div>
 
 

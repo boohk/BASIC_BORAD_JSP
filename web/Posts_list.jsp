@@ -91,19 +91,25 @@
                 rs.close();
                 db.pstmtClose();
 
-            } catch (SQLException e) {
-                out.println(e.toString());
-            }
+            } catch (SQLException se) {
+                        out.println(se.getMessage());
+                    } finally {
+                        try {
+                            db.pstmtClose();
+                        } catch (SQLException se) {
+                            out.println(se.getMessage());
+                        }
+                    }
         %>
         </tbody>
     </table>
     <hr>
     <div class="row">
         <div class="col-md-3">
-            <input type="button" value="전체보기" onclick="move('Posts_list.jsp')" ;>
+            <a class="btn btn-success" name="show" href="Posts_list.jsp">전체보기</a>
         </div>
         <div class="col-md-3 col-md-push-7 col-md-offset-1">
-            <input type="button" value="글쓰기" onclick="move('Post.html');">
+            <a class="btn btn-success" name="write" href="Post.html">글쓰기</a>
         </div>
     </div>
 </div>
