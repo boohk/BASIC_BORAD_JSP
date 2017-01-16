@@ -13,13 +13,23 @@
     <script src="js/ClickEvent.js"></script>
 </head>
 <%
-
+    String idx = request.getParameter("idx");
+    String check;
+    if (request.getParameter("update").equals("update")) {
+        check = request.getParameter("update");
+    } else {
+        check = request.getParameter("delete");
+    }
 %>
 <body>
 
 <div class="container" style="align-content:center; text-align: center; margin-top: 200px;  ">
     <form action="Password_comfirm.jsp" method="post" accept-charset="utf-8" name="password_checking"
           id="password_confirm">
+        <input type="hidden" name="idx" value=<%=idx%>>
+        <input type="hidden" name="check" value=<%=check%>>
+
+        <input type="text">
         <ul class="list-group">
             <li class="list-group-item">비밀번호를 입력하여 주세요.</li>
             <li class="list-group-item"><input type="password" id="psd" name="psd" class=""/></li>
@@ -38,3 +48,10 @@
 <%!
 
 %>
+if ($_POST['action'] == 'Update') {
+//action for update here
+} else if ($_POST['action'] == 'Delete') {
+//action for delete
+} else {
+//invalid action!
+}

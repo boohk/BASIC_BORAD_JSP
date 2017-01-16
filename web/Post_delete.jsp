@@ -14,6 +14,7 @@
 </head>
 <%
     try {
+
         String sql = "UPDATE normal SET " +
                 "WRITER = " + request.getParameter("writer") +
                 ",PASSWORD," + request.getParameter("psw") +

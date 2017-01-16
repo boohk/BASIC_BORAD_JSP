@@ -23,8 +23,6 @@
 <%
     try {
         String idx = request.getParameter("idx");
-        request.setAttribute("idx", idx);
-
 
         String sql = "UPDATE normal SET HIT = HIT + 1 WHERE IDX =" + idx;
         db.PreparedStatementOpen(sql);
@@ -45,7 +43,7 @@
 
 <div class="container">
     <table summary="글쓰기 전체 테이블">
-        <form name="WriteForm" method="post" action="Password_checking.html"
+        <form name="WriteForm" method="post" action="Password_checking_Update.jsp?idx=<%=idx%>"
               onsubmit="return WriteCheck();">
 
             <colgroup>
@@ -97,16 +95,17 @@
                         <div class="row">
                             <div class="align=left">
                                 <input type="button" value="전체보기" onclick="move('Posts_list.jsp')" ;>
-                                <input type="submit" name="update" value="수정">
-                                <input type="submit" name="delete" value="삭제">
+                                <a type="button" name="update" href="Password_comfirm.jsp?idx=<%=idx %>&check=update">수정</a>
+                                <a type="button" name="delete" href="Password_comfirm.jsp?idx=<%=idx %>&check=delete">삭제</a>
                                 <input type="button" value="글쓰기" onclick="move('Post.html');">
                             </div>
                             <%
-                                    response.sendRedirect("Password_confirm.jsp?idx=" + idx);
+
                                 } catch (SQLException e) {
                                     out.println(e.toString());
                                 }finally {
                                     db.pstmtClose();
+
                                     }
                             %>
                             <%--<jsp:forward page="Password_checking.html"></jsp:forward> <%--<jsp:forward page="Password_checking.html"></jsp:forward>--%>
@@ -120,11 +119,4 @@
 
 </div>
 </body>
-if ($_POST['action'] == 'Update') {
-//action for update here
-} else if ($_POST['action'] == 'Delete') {
-//action for delete
-} else {
-//invalid action!
-}
 </html>

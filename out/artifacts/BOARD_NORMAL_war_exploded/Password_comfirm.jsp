@@ -20,11 +20,22 @@
 
 <%
     try {
+        String idx = (String) request.getAttribute("idx");
+        out.println(idx);
+        String update = request.getParameter("update");
+        out.println(update);
+        String delete = request.getParameter("delete");
+        out.println(delete);
+
         String psd = request.getParameter("psd");
         out.println(psd);
 
-        String idx = (String)request.getAttribute("idx");
+        //String idx = (String)request.getAttribute("idx");
 
+        String update = (String)request.getAttribute("update");
+        out.println(update);
+        String delete = (String)request.getAttribute("delete");
+        out.println(delete);
 
         String sql = "select PASSWORD from normal where IDX="+idx;
         db.PreparedStatementOpen(sql);

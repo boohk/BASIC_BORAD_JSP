@@ -8,7 +8,7 @@
 <%@ page import="java.sql.*" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <jsp:useBean id="db" class="com.board.DAO.DB_Connection" scope="request"/>
-<%--<jsp:forward page="Post_update.jsp"></jsp:forward>--%>
+
 <html>
 
 <head>
@@ -17,25 +17,34 @@
 
 <%
     try {
-        //String idx = request.getParameter("idx");
-        String idx = (String)request.getAttribute("idx");
 
-        String sql = "UPDATE normal SET " +
-                "WRITER = " + request.getParameter("writer") +
-                ",PASSWORD," + request.getParameter("psw") +
-                ",TITLE," + request.getParameter("title") +
-                ",CONTENT," + request.getParameter("content") +
-                ",WHERE IDX =" + idx;
+        String idx = request.getParameter("idx");
+        String writer = request.getParameter("updateWriter");
+        String psw = request.getParameter("updatePsw");
+        String title = request.getParameter("updateTitle");
+        String content = request.getParameter("updateContent");
+        request.setCharacterEncoding("UTF-8");
 
+        String sql = " UPDATE  normal SET WRITER = ?, PASSWORD = ?, TITLE= ?,CONTENT = ?, `REG_TIMESTAMP` = 'CURRENT_TIMESTAMP' WHERE IDX =" + idx;
+        db.pstmtSetValues(writer, psw, title, content);
         db.PreparedStatementOpen(sql);
-        db.pstmtExecuteUpdate();
+        db.pstmtExecuteQuery();
+%>
 
-        response.sendRedirect("DetailedPost.jsp");
+<script language=javascript>
+    self.window.alert("글이 수정되었습니다.");
+    location.href = "DetailedPost.jsp?idx=<%=idx%>";
+</script>
 
+<%
     } catch (SQLException se) {
-        System.out.println(se.getMessage());
+        out.println(se.getMessage());
     } finally {
-        db.pstmtClose();
+        try {
+            db.pstmtClose();
+        } catch (SQLException se) {
+            out.println(se.getMessage());
+        }
     }
 %>
 <body>

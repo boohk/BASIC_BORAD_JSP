@@ -22,21 +22,17 @@
         String content = request.getParameter("content");
 
         db.pstmtSetValues(writer, psw, title, content);
-//        pstmt.setString(1, writer);
-//        pstmt.setString(2, psw);
-//        pstmt.setString(3, title);
-//        pstmt.setString(4, content);
         db.pstmtExecuteUpdate();
 
         response.sendRedirect("Posts_list.jsp");
 
     } catch (SQLException se) {
-        System.out.println(se.getMessage());
+        out.println(se.getMessage());
     } finally {
         try {
             db.pstmtClose();
         } catch (SQLException se) {
-            System.out.println(se.getMessage());
+            out.println(se.getMessage());
         }
     }
     // 결과 응답하기
